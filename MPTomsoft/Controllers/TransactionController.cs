@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MPTomsoft.Models;
+using MPTomsoft.ServiceContracts;
 
 namespace MPTomsoft.Controllers
 {
@@ -8,24 +9,24 @@ namespace MPTomsoft.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ILogger<ArticleController> _logger;
+        private readonly IApiService _apiService;
 
-        public TransactionController(ILogger<ArticleController> logger)
+        public TransactionController(ILogger<ArticleController> logger, IApiService apiService)
         {
             _logger = logger;
+            _apiService = apiService;
         }
 
         [HttpGet("payment")]
-        public async Task<IActionResult> GetTransactionsByPayment([FromQuery] TransactionQueryModel model)
+        public async Task<IActionResult> GetTransactionsByPayment([FromQuery] TransactionQueryModel query)
         {
-            var url = $"http://apidemo.luceed.hr/datasnap/rest/mpobracun/placanja/{model.Uid}/{model.DateFrom}/{model.DateTo}";
-            return Ok(QueryApi<TransactionPaymentDto>(url).Result.Result);
+            return Ok(_apiService.GetTransactionsByPayments(query).Result.Result);
         }
 
         [HttpGet("product")]
-        public async Task<IActionResult> GetTransactionsByProduct([FromQuery] TransactionQueryModel model)
+        public async Task<IActionResult> GetTransactionsByProduct([FromQuery] TransactionQueryModel query)
         {
-            var url = $"http://apidemo.luceed.hr/datasnap/rest/mpobracun/artikli/{model.Uid}/{model.DateFrom}/{model.DateTo}";
-            return Ok(QueryApi<TransactionProductDto>(url).Result.Result);
+            return Ok(_apiService.GetTransactionsByProducts(query).Result.Result);
         }
     }
 }
