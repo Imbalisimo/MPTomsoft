@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "MPTomsoft"
+  "defaultProject": "MPTomsoft",
+  "cli": {
+    "analytics": false
+  }
 }
