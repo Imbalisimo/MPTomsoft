@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MPTomsoft.Models;
+using MPTomsoft.ServiceContracts;
+using MPTomsoft.Services;
 
 namespace MPTomsoft.Controllers
 {
@@ -8,17 +10,18 @@ namespace MPTomsoft.Controllers
     public class ArticleController : ControllerBase
     {
         private readonly ILogger<ArticleController> _logger;
+        private readonly IApiService _apiService;
 
-        public ArticleController(ILogger<ArticleController> logger)
+        public ArticleController(ILogger<ArticleController> logger, IApiService apiService)
         {
             _logger = logger;
+            _apiService = apiService;
         }
 
         [HttpGet()]
-        public async Task<IActionResult> Get([FromQuery] QueryModel model)
+        public async Task<IActionResult> Get([FromQuery] QueryModel query)
         {
-            var url = $"http://apidemo.luceed.hr/datasnap/rest/artikli/naziv/{model.Query}";
-            return Ok(QueryApi<ArticlesDto>(url).Result.Result);
+            return Ok(_apiService.GetArticles(query).Result.Result);
         }
     }
 }

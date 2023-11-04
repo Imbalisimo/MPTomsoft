@@ -5,25 +5,27 @@ namespace MPTomsoft.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ArticleController : ControllerBase
+    public class TransactionController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
         private readonly ILogger<ArticleController> _logger;
 
-        public ArticleController(ILogger<ArticleController> logger)
+        public TransactionController(ILogger<ArticleController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet()]
-        public async Task<IActionResult> Get([FromQuery] QueryModel model)
+        [HttpGet("payment")]
+        public async Task<IActionResult> GetTransactionsByPayment([FromQuery] TransactionQueryModel model)
         {
-            var url = $"http://apidemo.luceed.hr/datasnap/rest/artikli/naziv/{model.Query}";
-            return Ok(QueryApi<ArticlesDto>(url).Result.Result);
+            var url = $"http://apidemo.luceed.hr/datasnap/rest/mpobracun/placanja/{model.Uid}/{model.DateFrom}/{model.DateTo}";
+            return Ok(QueryApi<TransactionPaymentDto>(url).Result.Result);
+        }
+
+        [HttpGet("product")]
+        public async Task<IActionResult> GetTransactionsByProduct([FromQuery] TransactionQueryModel model)
+        {
+            var url = $"http://apidemo.luceed.hr/datasnap/rest/mpobracun/artikli/{model.Uid}/{model.DateFrom}/{model.DateTo}";
+            return Ok(QueryApi<TransactionProductDto>(url).Result.Result);
         }
     }
 }

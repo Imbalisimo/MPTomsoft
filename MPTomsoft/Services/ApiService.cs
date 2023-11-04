@@ -9,6 +9,7 @@ namespace MPTomsoft.Services
     {
         private readonly string username = "luceed_mb";
         private readonly string password = "7e5y2Uza";
+
         public Task<ArticlesDto> GetArticles(QueryModel query)
         {
             var url = $"http://apidemo.luceed.hr/datasnap/rest/artikli/naziv/{query.Query}";

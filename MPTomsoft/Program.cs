@@ -1,8 +1,12 @@
+using MPTomsoft.ServiceContracts;
+using MPTomsoft.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IApiService, ApiService>();
 
 var app = builder.Build();
 
