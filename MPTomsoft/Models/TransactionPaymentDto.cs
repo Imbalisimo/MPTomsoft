@@ -12,8 +12,8 @@
 
     public class TransactionPayment
     {
-        public string Vrste_placanja_uid { get; set; }
-        public string Naziv { get; set; }
+        public string Vrste_placanja_uid { get; set; } // documentation says "Vrsta_placanja_uid"!
+        public string Naziv { get; set; }               // documentation says "Vrsta_placanja_naziv"!
         public double Iznos { get; set; }
         public string? Nadgrupa_placanja_uid { get; set; }
         public string? Nadgrupa_placanja_naziv { get; set; }

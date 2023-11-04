@@ -19,9 +19,9 @@ namespace MPTomsoft.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> Get([FromQuery] QueryModel query)
+        public async Task<IActionResult> Get([FromQuery] QueryModel model)
         {
-            return Ok(_apiService.GetArticles(query).Result.Result);
+            return Ok(_apiService.GetArticles(model).Result.Result);
         }
     }
 }

@@ -18,15 +18,15 @@ namespace MPTomsoft.Controllers
         }
 
         [HttpGet("payment")]
-        public async Task<IActionResult> GetTransactionsByPayment([FromQuery] TransactionQueryModel query)
+        public async Task<IActionResult> GetTransactionsByPayment([FromQuery] TransactionQueryModel model)
         {
-            return Ok(_apiService.GetTransactionsByPayments(query).Result.Result);
+            return Ok(_apiService.GetTransactionsByPayments(model).Result.Result);
         }
 
         [HttpGet("product")]
-        public async Task<IActionResult> GetTransactionsByProduct([FromQuery] TransactionQueryModel query)
+        public async Task<IActionResult> GetTransactionsByProduct([FromQuery] TransactionQueryModel model)
         {
-            return Ok(_apiService.GetTransactionsByProducts(query).Result.Result);
+            return Ok(_apiService.GetTransactionsByProducts(model).Result.Result);
         }
     }
 }
