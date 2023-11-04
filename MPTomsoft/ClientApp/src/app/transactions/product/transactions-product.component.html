@@ -1,0 +1,50 @@
+<h1 id="tableLabel">Transaction calculation by Product</h1>
+
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>UID</mat-label>
+    <input matInput formControlName="uid">
+  </mat-form-field>
+<br>
+  <mat-form-field>
+    <mat-label>From</mat-label>
+    <input matInput formControlName="dateFrom" [matDatepicker]="dateFrom">
+    <mat-datepicker-toggle matIconSuffix [for]="dateFrom"></mat-datepicker-toggle>
+    <mat-datepicker #dateFrom></mat-datepicker>
+  </mat-form-field>
+<br>
+  <mat-form-field>
+    <mat-label>To</mat-label>
+    <input matInput formControlName="dateTo" [matDatepicker]="dateTo">
+    <mat-datepicker-toggle matIconSuffix [for]="dateTo"></mat-datepicker-toggle>
+    <mat-datepicker #dateTo></mat-datepicker>
+  </mat-form-field>
+</form>
+
+<button
+  class="btn btn-primary"
+  [disabled]="!form.valid"
+  (click)="fetchTransactionsByProduct(form.controls.uid.value, form.controls.dateFrom.value, form.controls.dateTo.value)">
+  Search
+</button>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="transactions">
+  <thead>
+    <tr>
+      <th>Uid</th>
+      <th>Payment Type</th>
+      <th>Total</th>
+      <th>Supergroup Uid</th>
+      <th>Supergroup Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td>{{ transaction.artikl_uid }}</td>
+      <td>{{ transaction.naziv_artikla }}</td>
+      <td>{{ transaction.kolicina }}</td>
+      <td>{{ transaction.iznos }}</td>
+      <td>{{ transaction.usluga }}</td>
+    </tr>
+  </tbody>
+</table>
